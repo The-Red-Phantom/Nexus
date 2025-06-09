@@ -1,0 +1,2 @@
+2025-06-05 05:17:37 :: Nexus-Core-Vault GitHub Repo created and committed.
+2025-06-05 11:22:34 :: So this isn't going too weel. After vreating the git, had to rebase since the refs were messed up. Created a backup of all *.sh script into ~/ScriptBackups. Attempting to repush the repo and see if we cant finally made this dame Nexus-Core legit.
