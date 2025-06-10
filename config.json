@@ -1,4 +1,4 @@
-{
+o{
   "identity": "Nexus v1.0",
   "modules": ["ioncore_mps", "ghost_toggle", "resurrect_toggle"]
 }
