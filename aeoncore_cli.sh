@@ -2,15 +2,30 @@
 
 # AeonCore CLI | Nexus Interface Layer
 CONFIG_FILE="./config.json"
-COREOPS_DIR="./coreops"
+
+if [[ ! -f "$CONFIG_FILE" ]]; then
+  echo "❌ config.json not found!"
+  exit 1
+fi
+
+PROJECT=$(jq -r ".project" "$CONFIG_FILE")
+BUILD=$(jq -r ".build" "$CONFIG_FILE")
+COREOPS_DIR="$HOME/Nexus/coreops"
 VERSION="1.0"
-PROJECT_NAME=$(jq -r '.project_name' $CONFIG_FILE)
-BUILD_TAG=$(jq -r '.build_tag' $CONFIG_FILE)
 
 banner() {
-  echo -e "\n🧠 AeonCore Nexus CLI v$VERSION"
-  echo "🔧 Project: $PROJECT_NAME | Build: $BUILD_TAG"
+  clear
+  echo -e "\e[1;31m"
+  echo "╔══════════════════════════════════════════════════════╗"
+  echo "║     🧠 AeonCore Nexus CLI v$VERSION — SYSTEM ONLINE       ║"
+  echo "╠══════════════════════════════════════════════════════╣"
+  echo -e "║  🔧 Project: \e[1;36m$PROJECT\e[1;31m | Build: \e[1;36m$BUILD\e[1;31m ║"
+  echo "║  👁  Ghostline Monitor Active — Welcome back, Red.  ║"
+  echo "║  📡 Listening for anomalies across digital æther...   ║"
+  echo "╚══════════════════════════════════════════════════════╝"
+  echo -e "\e[0m"
 }
+
 
 show_help() {
   echo -e "\nUsage: aeoncore_cli.sh [option]"
@@ -18,7 +33,7 @@ show_help() {
   echo "  --ghost         Toggle Ghost Mode (calls ghost_toggle.sh)"
   echo "  --resurrect     Toggle Resurrection Mode (calls resurrect_toggle.sh)"
   echo "  --vault         Open vault menu (calls vault_menu.sh if exists)"
-  echo "  --mps           Run Memory Parser (ioncore_mps.py)"
+  echo "  --mps           Run Memory Parser (aeoncore_mps.py)"
   echo "  --help          Show this help menu"
 }
 
@@ -49,7 +64,7 @@ case "$1" in
     check_and_run "$COREOPS_DIR/vault_menu.sh"
     ;;
   --mps)
-    python3 "$COREOPS_DIR/ioncore_mps.py"
+    python3 "$COREOPS_DIR/aeoncore_mps.py"
     ;;
   --help | *)
     banner

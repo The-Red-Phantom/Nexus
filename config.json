@@ -1,8 +1,11 @@
-o{
-  "identity": "Nexus v1.0",
-  "modules": ["ioncore_mps", "ghost_toggle", "resurrect_toggle"]
+{
+  "project": "AeonCore",
+  "build": "Ghostline-01",
+  "ghost_mode": false,
+  "resurrect_mode": false,
+  "memory_paths": {
+    "log_dir": "~/Nexus/logs",
+    "vault_dir": "~/Nexus/vault"
+  }
 }
-  "project_name": "AeonCore",
-  "build_tag": "Ghostline-01",
-  "openai_api_key": "sk-xxxREPLACE_MExxx"
-}
+

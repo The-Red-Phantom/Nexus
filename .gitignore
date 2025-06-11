@@ -1,0 +1,10 @@
+*.log
+*.bak
+*.swp
+*.tmp
+.vault/
+vault/
+config.json
+*.key
+*.pem
+*.gpg
