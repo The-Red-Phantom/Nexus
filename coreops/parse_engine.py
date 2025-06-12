@@ -4,7 +4,7 @@ import os
 import json
 import datetime
 
-CONFIG_PATH = "/home/nexus/Nexus/coreops/config.json"
+CONFIG_PATH = "/home/nexus/Nexus/config.json"
 LOG_PATH = "/home/nexus/Nexus/coreops/logs/ioncore.log"
 
 def load_config():
