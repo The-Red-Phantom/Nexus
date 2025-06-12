@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # AeonCore CLI | Nexus Interface Layer
-CONFIG_FILE="./config.json"
+CONFIG_FILE="/home/nexus/Nexus/config.json"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
   echo "❌ config.json not found!"
@@ -10,7 +10,7 @@ fi
 
 PROJECT=$(jq -r ".project" "$CONFIG_FILE")
 BUILD=$(jq -r ".build" "$CONFIG_FILE")
-COREOPS_DIR="$HOME/Nexus/coreops"
+COREOPS_DIR="/home/nexus/Nexus/coreops"
 VERSION="1.0"
 
 banner() {
