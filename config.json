@@ -1,10 +1,14 @@
-###{
-###  "project": "AeonCore",
-## "ghost_mode": false,
-  #"resurrect_mode": false,
-  #"memory_paths": {
-   # "log_dir": "~/Nexus/logs",
-    #"vault_dir": "~/Nexus/vault"
-  }
+{
+  "project_name": "AeonCore",
+  "build_tag": "NEXUS-GENESIS",
+  "openai_api_key": "/home/nexus/Nexus/vault/nexus.key",
+  "coreops_path": "/home/nexus/Nexus/coreops",
+  "log_dir": "/home/nexus/Nexus/logs",
+  "vault_dir": "/home/nexus/Nexus/coreops/vault",
+  "nexus_key_path": "/home/nexus/Nexus/coreops/vault/nexus.key",
+  "status_script": "/home/nexus/Nexus/status.py",
+  "nexus_online_script": "/home/nexus/Nexus/nexus_online.sh",
+  "init_engine_script": "/home/nexus/Nexus/init_engine.sh",
+  "nexus_bridge": "/home/nexus/Nexus/nexus_bridge.py"
 }
 

@@ -1,8 +1,0 @@
-{
-  "identity": "Nexus v1.0",
-  "modules": ["ioncore_mps", "ghost_toggle", "resurrect_toggle"]
-}
-  "project_name": "AeonCore",
-  "build_tag": "Ghostline-01",
-  "openai_api_key": "sk-xxxREPLACE_MExxx"
-}

@@ -1,47 +1,57 @@
 #!/usr/bin/env python3
+# File: status.py
+# Purpose: Show AeonCore system status including ghost/resurrect states, timestamps, and memory paths
 
-import json
 import os
+import json
 import platform
-import datetime
+from datetime import datetime
 
-CONFIG_PATH = os.path.expanduser('/home/nexus/Nexus/config.json')
-COREOPS_PATH = os.path.expanduser('/home/nexus//Nexus/coreops')
+CONFIG_PATH = "/home/nexus/Nexus/config.json"
 
-def load_config():
+def load_config(path):
     try:
-        with open(CONFIG_PATH, 'r') as f:
-            return json.load(f)
+        with open(path, 'r') as file:
+            return json.load(file)
     except Exception as e:
-        return {"error": f"Failed to load config: {str(e)}"}
+        print(f"[ERROR] Failed to load config: {e}")
+        return {}
 
-def get_status():
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    system = platform.system()
-    release = platform.release()
-    node = platform.node()
-    config = load_config()
+def read_toggle_file(file_path):
+    try:
+        with open(file_path, 'r') as f:
+            return f.read().strip().upper()
+    except:
+        return "DISABLED"
 
-    print("🧠 AeonCore Status Report")
-    print(f"🕒 Timestamp: {now}")
-    print(f"💻 System: {system} {release} | Node: {node}")
-    print(f"📁 CoreOps Path: {COREOPS_PATH}")
-    print(f"🗂️ Config Path: {CONFIG_PATH}")
-
-    if "error" in config:
-        print(f"⚠️ Config Error: {config['error']}")
+def main():
+    config = load_config(CONFIG_PATH)
+    if not config:
         return
 
-    print(f"🔧 Project: {config.get('project', 'Unknown')}")
-    print(f"🔨 Build: {config.get('build', 'Unknown')}")
-    print(f"👻 Ghost Mode: {'ENABLED' if config.get('ghost_mode') else 'DISABLED'}")
-    print(f"☠️ Resurrection Mode: {'ENABLED' if config.get('resurrect_mode') else 'DISABLED'}")
+    print("\033[1;36m[AEONCORE]\033[0m Welcome to AeonCore CLI for project: {} [{}]".format(
+        config.get("project_name", "Unknown"),
+        config.get("build_tag", "Unknown")
+    ))
 
-    memory_paths = config.get("memory_paths", {})
-    if memory_paths:
-        print("🧬 Memory Paths:")
-        for key, value in memory_paths.items():
-            print(f"  {key}: {value}")
+    print("🧠 AeonCore Status Report")
+    print("🕒 Timestamp:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    print("💻 System:", platform.system(), platform.release(), "| Node:", platform.node())
+
+    print("📁 CoreOps Path:", config.get("coreops_path", "Not Defined"))
+    print("🗂 Config Path:", CONFIG_PATH)
+    print("🔧 Project:", config.get("project_name", "Unknown"))
+    print("🔨 Build:", config.get("build_tag", "Unknown"))
+
+    ghost_status = read_toggle_file("/home/nexus/Nexus/coreops/.ghost")
+    resurrect_status = read_toggle_file("/home/nexus/Nexus/coreops/.resurrect")
+
+    print("👻 Ghost Mode:", ghost_status)
+    print("☠ Resurrection Mode:", resurrect_status)
+
+    print("🧬 Memory Paths:")
+    print("  log_dir:", config.get("log_dir", "Not Defined"))
+    print("  vault_dir:", config.get("vault_dir", "Not Defined"))
 
 if __name__ == "__main__":
-    get_status()
+    main()

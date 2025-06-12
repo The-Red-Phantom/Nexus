@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-NEXUS_HOME=~/nexus-core
-LOG="$NEXUS_HOME/logs/nexus.log"
+NEXUS_HOME=/home/nexus/Nexus
+LOG="$NEXUS_HOME/logs/core.log"
 VAULT="$NEXUS_HOME/vault/vault.gpg"
 
 echo "[NEXUS] Welcome, Red Phantom."
