@@ -20,7 +20,7 @@ def collect_memory_data():
         "swap_percent": swap.percent
     }
 
-def save_memory_report(output_path="~/Nexus/logs/memory_report.json"):
+def save_memory_report(output_path="/home/nexus/Nexus/logs/memory_report.json"):
     try:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         data = collect_memory_data()
