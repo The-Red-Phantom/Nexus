@@ -5,8 +5,8 @@ import os
 import platform
 import datetime
 
-CONFIG_PATH = os.path.expanduser('~/Nexus/config.json')
-COREOPS_PATH = os.path.expanduser('~/Nexus/coreops')
+CONFIG_PATH = os.path.expanduser('/home/nexus/Nexus/config.json')
+COREOPS_PATH = os.path.expanduser('/home/nexus//Nexus/coreops')
 
 def load_config():
     try:
