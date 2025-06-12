@@ -1,11 +1,10 @@
-{
-  "project": "AeonCore",
-  "build": "Ghostline-01",
-  "ghost_mode": false,
-  "resurrect_mode": false,
-  "memory_paths": {
-    "log_dir": "~/Nexus/logs",
-    "vault_dir": "~/Nexus/vault"
+###{
+###  "project": "AeonCore",
+## "ghost_mode": false,
+  #"resurrect_mode": false,
+  #"memory_paths": {
+   # "log_dir": "~/Nexus/logs",
+    #"vault_dir": "~/Nexus/vault"
   }
 }
 
