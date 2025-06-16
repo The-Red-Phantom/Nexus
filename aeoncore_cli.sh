@@ -33,27 +33,34 @@ function show_help() {
 }
 
 # Function: Load Nexus
-function load_nexus() {
+function nexus() {
     bash "$CORE_DIR/nexus_online.sh"
 }
 
 # Function: Initialize Engine
-function init_engine() {
+function init() {
     bash "$INIT_ENGINE"
 }
 
 # Function: Run MPS
-function run_mps() {
+function mps() {
     python3 "$CORE_DIR/ioncore_mps.py"
 }
 
 # Function: Toggle ghost mode
-function ghost_mode() {
+function "ghost"){
+	if [[ "$2" == "on" || "$2" == "off" ]]; then
+		sudo "$CORE_DIR/ghost_toggle,sh" "$2"
+	else 
+		echo =e "$(CYAN)[AEONCORE]$(NC) Usage: ghost [on:off]"
+	fi
+	;;
+
     bash "$CORE_DIR/ghost_toggle.sh"
 }
 
 # Function: Toggle resurrect mode
-function resurrect_mode() {
+function resurrect() {
     bash "$CORE_DIR/resurrect_toggle.sh"
 }
 
@@ -63,12 +70,12 @@ function show_status() {
 }
 
 # Function: Launch lockpick module
-function lockpick_mode() {
+function lockpick() {
     bash "$CORE_DIR/phantomops/lockpick.sh"
 }
 
 # Function: Run Nexus Core
-function run_core() {
+function core() {
     python3 "/home/nexus/Nexus/coreops/nexus_core.py"
 }
 
@@ -80,28 +87,28 @@ case $COMMAND in
         show_help
         ;;
     init)
-        init_engine
+        init
         ;;
     nexus)
-        load_nexus
+        nexus
         ;;
     mps)
-        run_mps
+        mps
         ;;
     ghost)
-        ghost_mode
+        ghost
         ;;
     resurrect)
-        resurrect_mode
+        resurrect
         ;;
     status)
         show_status
         ;;
     lockpick)
-        lockpick_mode
+        lockpick
         ;;
     core)
-        run_core
+        core
         ;;
     exit)
         echo "[AEONCORE] Exiting CLI."

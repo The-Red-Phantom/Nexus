@@ -1,16 +1,17 @@
-#!/usr/bin/env python3
-
-import os
-import psutil
 import json
-from datetime import datetime
+import psutil
+import datetime
+import sys
+import os
 
-def collect_memory_data():
+log_path = os.path.expanduser("home/nexus/Nexus/logs/memory_log.json")
+
+def memory_parse(symbolic=None):
     memory = psutil.virtual_memory()
     swap = psutil.swap_memory()
-
-    return {
-        "timestamp": datetime.now().isoformat(),
+    
+    data = {
+        "timestamp": str(datetime.datetime.now()),
         "memory_total": memory.total,
         "memory_available": memory.available,
         "memory_used": memory.used,
@@ -20,17 +21,21 @@ def collect_memory_data():
         "swap_percent": swap.percent
     }
 
-def save_memory_report(output_path="/home/nexus/Nexus/logs/memory_report.json"):
-    try:
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        data = collect_memory_data()
+    if symbolic:
+        data["symbolic_memory"] = symbolic
 
-        with open(output_path, 'w') as f:
-            json.dump(data, f, indent=4)
-        print(f"[+] Memory report saved to {output_path}")
+    os.makedirs(os.path.dirname(log_path), exist_ok=True)
+    if not os.path.exists(log_path):
+        with open(log_path, "w") as f:
+            json.dump([], f)
 
-    except Exception as e:
-        print(f"[-] Error saving memory report: {e}")
+    with open(log_path, "r+") as f:
+        logs = json.load(f)
+        logs.append(data)
+        f.seek(0)
+        json.dump(logs, f, indent=4)
 
 if __name__ == "__main__":
-    save_memory_report()
+    symbolic_input = sys.argv[1] if len(sys.argv) > 1 else None
+    memory_parse(symbolic_input)
+

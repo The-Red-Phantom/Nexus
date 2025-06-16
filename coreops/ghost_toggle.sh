@@ -1,24 +1,75 @@
 #!/bin/bash
+# ghost_toggle.sh: Toggle stealth mode for AeonCore Lockpick
+# When enabled, block all outbound except essential scanning traffic
 
-echo "[+] Activating Ghost Mode..."
+GHOST_FLAG="/tmp/ghost_mode.enabled"
 
-# Drop all inbound and outbound traffic by default
-sudo iptables -P INPUT DROP
-sudo iptables -P OUTPUT DROP
-sudo iptables -P FORWARD DROP
+enable_ghost() {
+  echo "[GHOST] Enabling stealth mode..."
+  # Flush existing rules to avoid conflicts
+  iptables -F OUTPUT
+  iptables -F INPUT
+  iptables -F FORWARD
 
-# Allow traffic on loopbck so system doesn't choke
-sudo iptables -A INPUT -i lo -j ACCEPT
-sudo iptables -A OUTPUT -o lo -j ACCEPT
+  # Default policies: block outbound and inbound
+  iptables -P OUTPUT DROP
+  iptables -P INPUT DROP
+  iptables -P FORWARD DROP
 
-# Block ICMP (ping)
-sudo iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
-sudo iptables -A OUTPUT -p icmp --icmp-type echo-reply -j DROP
+  # Allow loopback and established connections
+  iptables -A INPUT -i lo -j ACCEPT
+  iptables -A OUTPUT -o lo -j ACCEPT
+  iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+  iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# Flush any open sessions
-sudo iptables -F
+  # Allow DNS (UDP 53) outbound for scans to resolve domains
+  iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
 
-# Make it stick for the session
-echo "[+] Ghost Mode Initiated! You're a phantom!"
+  # Allow ICMP echo requests and replies (ping) outbound/inbound
+  iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+  iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 
-exit 0
+  # Allow nmap TCP scanning on ports commonly used (e.g., top 1000)
+  # Accept outbound TCP SYN packets (scan probes)
+  iptables -A OUTPUT -p tcp --syn -j ACCEPT
+
+  # Save flag file
+  touch "$GHOST_FLAG"
+  echo "[GHOST] Stealth mode enabled."
+}
+
+disable_ghost() {
+  echo "[GHOST] Disabling stealth mode..."
+  iptables -F OUTPUT
+  iptables -F INPUT
+  iptables -F FORWARD
+  iptables -P OUTPUT ACCEPT
+  iptables -P INPUT ACCEPT
+  iptables -P FORWARD ACCEPT
+  rm -f "$GHOST_FLAG"
+  echo "[GHOST] Stealth mode disabled."
+}
+
+status_ghost() {
+  if [ -f "$GHOST_FLAG" ]; then
+    echo "[GHOST] Stealth mode is currently ENABLED."
+  else
+    echo "[GHOST] Stealth mode is currently DISABLED."
+  fi
+}
+
+case "$1" in
+  on)
+    enable_ghost
+    ;;
+  off)
+    disable_ghost
+    ;;
+  status)
+    status_ghost
+    ;;
+  *)
+    echo "Usage: $0 {on|off|status}"
+    ;;
+esac
+
