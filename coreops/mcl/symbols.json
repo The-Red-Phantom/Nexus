@@ -1,0 +1,9 @@
+{
+  "ghost:on": "🫥",
+  "ghost:off": "👁️",
+  "resurrect:on": "🔁",
+  "resurrect:off": "💤",
+  "core:init": "⚙️",
+  "lockpick:armed": "🔓",
+  "lockpick:standby": "🛑"
+}
