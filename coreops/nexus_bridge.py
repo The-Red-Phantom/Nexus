@@ -4,7 +4,7 @@ import json
 import sys
 
 # Load config
-with open('/home/nexus/Nexus/config.json') as f:
+with open("/home/nexus/Nexus/config.json" ) as f:
     config = json.load(f)
 
 openai.api_key = config.get("openai_api_key", None)
