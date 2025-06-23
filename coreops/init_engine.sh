@@ -8,8 +8,8 @@ echo "[AeonCore] Initializing engine..."
 # Define base paths
 AEON_HOME="/home/nexus/Nexus"
 CONFIG_PATH="$AEON_HOME/config.json"
-LOG_PATH="$AEON_HOME/Nexus/logs"
-MODULES_PATH="$AEON_HOME/modules"
+LOG_PATH="$AEON_HOME/logs"
+MODULES_PATH="$AEON_HOME/coreops"
 COREOPS_PATH="$AEON_HOME/coreops"
 
 # Timestamp for logging
@@ -23,7 +23,7 @@ touch "$LOG_PATH/startup_$NOW.log"
 echo "[*] Startup log initialized at $NOW" >> "$LOG_PATH/startup_$NOW.log"
 
 # Load config
-if [[ -f "$CONFIG_PATH/aeoncore.conf" ]]; then
+if [[ -f "$CONFIG_PATH" ]]; then
     source "$CONFIG_PATH"
     echo "[+] Config loaded." >> "$LOG_PATH/startup_$NOW.log"
 else
