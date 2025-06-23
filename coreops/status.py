@@ -7,7 +7,7 @@ import json
 import platform
 from datetime import datetime
 
-CONFIG_PATH = "/home/nexus/Nexus/config.json"
+CONFIG_PATH = ("/home/nexus/Nexus/config.json")
 
 def load_config(path):
     try:
