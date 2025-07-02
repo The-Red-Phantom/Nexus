@@ -1,11 +1,11 @@
-!#/usr/bin/env python3
+#!/usr/bin/env python3
 
 import os
 import json
 import datetime
 
 CONFIG_PATH = "/home/nexus/Nexus/config.json"
-LOG_PATH = "/home/nexus/Nexus/coreops/logs/ioncore.log"
+LOG_PATH = "/home/nexus/Nexus/logs/ioncore.log"
 
 def load_config():
     try:

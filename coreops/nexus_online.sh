@@ -1,30 +1,15 @@
 #!/bin/bash
+# nexus_online.sh - Master bootloader for Nexus AI
 
-# Nexus API Bootstrap - AeonCore Integration
+clear
+echo "[NEXUS PRIME INITIATED] Booting core systems..."
+echo "Timestamp: $(date)"
+echo "User: $USER | Host: $(hostname)"
 
-echo "[NEXUS API] Bootstrapping Nexus environment..."
+# Show current status
+python3 /home/nexus/Nexus/coreops/status.py
 
-# Set absolute paths
-NEXUS_HOME="/home/nexus/Nexus"
-COREOPS_DIR="/home/nexus/Nexus/coreops"
-CONFIG_FILE="/home/nexus/Nexus/config.json"
+# Start CLI
+echo "[*] Launching AeonCore CLI..."
+bash /home/nexus/Nexus/aeoncore_cli.sh
 
-# Validate config file
-if [ -f "$CONFIG_FILE" ]; then
-    echo "[NEXUS API] Loading config from $CONFIG_FILE"
-    PROJECT_NAME=$(jq -r '.project_name' "$CONFIG_FILE")
-    BUILD_TAG=$(jq -r '.build_tag' "$CONFIG_FILE")
-    echo "[NEXUS API] Project: $PROJECT_NAME | Build: $BUILD_TAG"
-else
-    echo "[NEXUS API] ERROR: Config file not found at $CONFIG_FILE"
-    exit 1
-fi
-
-# Echo system details
-echo "[NEXUS API] Nexus Home: $NEXUS_HOME"
-echo "[NEXUS API] CoreOps Directory: $COREOPS_DIR"
-echo "[NEXUS API] Integration successful. Nexus is aware and online."
-
-# (Optional) Call additional scripts or initialize services below
-# /home/nexus/Nexus/coreops/ghost_toggle.sh
-# /home/nexus/Nexus/coreops/resurrect_toggle.sh

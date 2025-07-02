@@ -1,0 +1,32 @@
+[
+    {
+        "timestamp": "2025-06-21 11:39:24.747701",
+        "memory_total": 16492318720,
+        "memory_available": 14837624832,
+        "memory_used": 1021816832,
+        "memory_percent": 10.0,
+        "swap_total": 8305766400,
+        "swap_used": 0,
+        "swap_percent": 0.0
+    },
+    {
+        "timestamp": "2025-06-21 11:40:06.697968",
+        "memory_total": 16492318720,
+        "memory_available": 14856253440,
+        "memory_used": 1013436416,
+        "memory_percent": 9.9,
+        "swap_total": 8305766400,
+        "swap_used": 0,
+        "swap_percent": 0.0
+    },
+    {
+        "timestamp": "2025-06-21 16:31:39.975155",
+        "memory_total": 16492318720,
+        "memory_available": 14059556864,
+        "memory_used": 1501933568,
+        "memory_percent": 14.8,
+        "swap_total": 8305766400,
+        "swap_used": 0,
+        "swap_percent": 0.0
+    }
+]

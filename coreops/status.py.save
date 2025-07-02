@@ -7,11 +7,11 @@ import json
 import platform
 from datetime import datetime
 
-CONFIG_PATH = ("/home/nexus/Nexus/config.json")
+CONFIG_PATH = "/home/nexus/Nexus/config.json"
 
-def load_config(config_path):
+def load_config():
     try:
-        with open(config_path, 'r') as file:
+        with open(path, 'r') as file:
             return json.load(file)
     except Exception as e:
         print(f"[ERROR] Failed to load config: {e}")

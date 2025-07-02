@@ -5,9 +5,9 @@ import sys
 from datetime import datetime
 
 # Paths
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SYM_PATH = os.path.join(BASE_DIR, "symbols.json")
-DB_PATH = os.path.join(BASE_DIR, "mcl_memory.db")
+BASE_DIR ="/home/nexus/Nexus"
+SYM_PATH ="/home/nexus/Nexus/coreops/mcl/symbols.json"
+DB_PATH ="/home/nexus/Nexus/coreops/mcl/mcl_memory.db"
 
 # Load symbols
 with open(SYM_PATH, "r") as f:

@@ -1,283 +1,65 @@
+/home/nexus/Nexus
+├── aeoncore_cli.sh
+├── config.json
+├── coreops
+│   ├── aeoncore_mps.py
+│   ├── .ghost
+│   ├── GhostMode.sh
+│   ├── ghost_toggle.sh
+│   ├── init_engine.sh
+│   ├── ioncore_mps.py
+│   ├── lockpick
+│   │   ├── cloak.sh
+│   │   ├── credcheck.sh
+│   │   ├── exploit_suggest.sh
+│   │   ├── loot.sh
+│   │   ├── menu.sh
+│   │   ├── netmapper.sh
+│   │   ├── pivot.sh
+│   │   ├── python_drops.sh
+│   │   ├── recon.sh
+│   │   ├── scan.sh
+│   │   ├── smb_enum.sh
+│   │   ├── veil.sh
+│   │   └── vulnscan.sh
+│   ├── lockpick.sh
+│   ├── mcl
+│   │   ├── mcl_engine.py
+│   │   ├── mcl_memory.db
+│   │   └── symbols.json
+│   ├── nexus_bridge.py
+│   ├── nexus_core.py
+│   ├── nexus-core.sh
+│   ├── nexus_integration.sh
+│   ├── nexus_listen.py
+│   ├── nexus_online.sh
+│   ├── nexus.sh
+│   ├── nexus.sh.save
+│   ├── parse_engine.py
+│   ├── phantomops
+│   │   ├── exploit_suggester.py
+│   │   └── legal_gatekeeper.sh
+│   ├── pingtest.sh
+│   ├── .resurrect
+│   ├── Resurrect
+│   │   └── resurrect_toggle.sh
+│   ├── Resurrect.sh
+│   ├── resurrect_toggle.sh
+│   ├── status.py
+│   └── status.py.save
+├── .gitignore
+├── home
+│   └── nexus
+│       └── Nexus
+├── init_engine.sh
+├── modules
+├── Nexus.sh
+├── .tree.txt
+├── utils
+│   └── helper
+│       └── helper.sh
+└── vault
+    ├── nexus.key
+    └── vault.gpg
 
-### nexus@DeadSpace
-
-### ┌──(nexus㉿DeadSpace)-[/]
-└─$ ls -la
-total 72
-drwxr-xr-x  18 root root  4096 Jun  9 00:28 .
-drwxr-xr-x  18 root root  4096 Jun  9 00:28 ..
--rw-r--r--   1 root root     0 Jun  3 03:15 .autorelabel
-lrwxrwxrwx   1 root root     7 Jun  2 15:07 bin -> usr/bin
-drwxr-xr-x   4 root root  4096 Jun  8 23:20 boot
-drwxr-xr-x  20 root root  3600 Jun  9 17:59 dev
-drwxr-xr-x 251 root root 12288 Jun  8 23:20 etc
-drwxr-xr-x   3 root root  4096 Jun  2 15:15 home
-lrwxrwxrwx   1 root root    29 Jun  2 16:08 initrd.img -> boot/initrd.img-6.12.25-amd64
-lrwxrwxrwx   1 root root    29 Jun  2 15:07 initrd.img.old -> boot/initrd.img-6.12.13-amd64
-lrwxrwxrwx   1 root root     7 Jun  2 15:07 lib -> usr/lib
-lrwxrwxrwx   1 root root     9 Jun  3 01:46 lib32 -> usr/lib32
-lrwxrwxrwx   1 root root     9 Jun  2 15:07 lib64 -> usr/lib64
-drwx------   2 root root 16384 Jun  2 15:06 lost+found
-drwxr-xr-x   4 root root  4096 Jun  8 01:52 media
-drwxr-xr-x   2 root root  4096 Jun  2 15:07 mnt
-drwxr-xr-x   7 root root  4096 Jun  7 11:17 opt
-dr-xr-xr-x 283 root root     0 Jun  9 17:14 proc
-drwx------   9 root root  4096 Jun  3 11:34 root
-drwxr-xr-x  45 root root  1080 Jun  9 19:38 run
-lrwxrwxrwx   1 root root     8 Jun  2 15:07 sbin -> usr/sbin
-drwxr-xr-x   3 root root  4096 Jun  3 02:54 srv
-dr-xr-xr-x  13 root root     0 Jun  9 17:25 sys
-drwxrwxrwt  15 root root   360 Jun  9 19:39 tmp
-drwxr-xr-x  17 root root  4096 Jun  3 01:50 usr
-drwxr-xr-x  12 root root  4096 Jun  3 03:15 var
-lrwxrwxrwx   1 root root    26 Jun  2 16:08 vmlinuz -> boot/vmlinuz-6.12.25-amd64
-lrwxrwxrwx   1 root root    26 Jun  2 15:07 vmlinuz.old -> boot/vmlinuz-6.12.13-amd64
-
-┌──(nexus㉿DeadSpace)-[~]
-└─$ ls -la
-total 180
-drwx------ 21 nexus nexus  4096 Jun  9 19:55 .
-drwxr-xr-x  3 root  root   4096 Jun  2 15:15 ..
-drwxrwxr-x 16 nexus nexus  4096 Jun  9 19:56 AeonCore
-drwxr-x---  2 nexus nexus  4096 Jun  4 22:38 .android
--rw-r--r--  1 nexus nexus   220 Jun  2 15:15 .bash_logout
--rw-r--r--  1 nexus nexus  5551 Jun  2 15:15 .bashrc
--rw-r--r--  1 nexus nexus  3526 Jun  2 15:15 .bashrc.original
-drwxrwxr-x 27 nexus nexus  4096 Jun  9 20:01 .cache
-drwxr-xr-x 15 nexus nexus  4096 Jun  9 19:55 .config
-drwxr-xr-x  2 nexus nexus  4096 Jun  2 11:16 Desktop
-drwxr-xr-x  2 nexus nexus  4096 Jun  2 11:16 Documents
-drwxr-xr-x  2 nexus nexus  4096 Jun  8 10:02 Downloads
--rw-r--r--  1 nexus nexus 11613 Jun  2 15:15 .face
-lrwxrwxrwx  1 nexus nexus     5 Jun  2 15:15 .face.icon -> .face
--rw-r--r--  1 nexus nexus 11759 Jun  2 15:15 .face.original
--rw-rw-r--  1 nexus nexus   163 Jun  5 05:34 .gitconfig
-drwx------  3 nexus nexus  4096 Jun  5 11:27 .gnupg
-drwxr-xr-x  3 nexus nexus  4096 Jun  2 15:15 .java
-drwxr-xr-x  5 nexus nexus  4096 Jun  2 11:16 .local
-drwx------  4 nexus nexus  4096 Jun  2 22:26 .mozilla
-drwxr-xr-x  2 nexus nexus  4096 Jun  2 11:16 Music
-drwxrwxr-x  8 nexus nexus  4096 Jun  5 11:46 nexus
-drwxrwxr-x  6 nexus nexus  4096 Jun  2 20:35 nexusenv
-drwxr-xr-x  3 nexus nexus  4096 Jun  2 20:13 Pictures
--rw-r--r--  1 nexus nexus   807 Jun  2 15:15 .profile
-drwxr-xr-x  2 nexus nexus  4096 Jun  2 11:16 Public
--rw-r--r--  1 nexus nexus     0 Jun  2 15:17 .sudo_as_admin_successful
-drwxr-xr-x  2 nexus nexus  4096 Jun  2 11:16 Templates
-drwxrwxr-x  3 nexus nexus  4096 Jun  2 17:45 .var
-drwxr-xr-x  2 nexus nexus  4096 Jun  2 11:16 Videos
--rw-------  1 nexus nexus  5876 Jun  5 11:27 .viminfo
--rw-r--r--  1 nexus nexus   336 Jun  2 15:15 .zprofile
--rw-------  1 nexus nexus 24094 Jun  9 00:27 .zsh_history
--rw-r--r--  1 nexus nexus 10868 Jun  2 15:15 .zshrc
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore]
-└─$ ls -la
-total 68
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 .
-drwx------ 21 nexus nexus 4096 Jun  9 19:55 ..
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 09:05 aeoncore_cli
-drwxr-xr-x  4 nexus nexus 4096 Jun  8 01:19 ai
-drwxrwxr-x  4 nexus nexus 4096 Jun  8 13:20 config
-drwxrwxr-x  7 nexus nexus 4096 Jun  9 17:24 coreops
-drwxrwxr-x  8 nexus nexus 4096 Jun  9 17:32 .git
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 12:52 logs
-drwxr-xr-x  4 nexus nexus 4096 Jun  8 01:18 memory
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 10:22 memory_parser
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 08:05 nexus_api
-drwxrwxr-x  2 nexus nexus 4096 Jun  9 17:24 ScriptBackups
-drwxr-xr-x  3 nexus nexus 4096 Jun  8 01:20 splunk
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 10:05 tmp
--rw-rw-r--  1 nexus nexus 1024 Jun  9 19:56 .tree.txt.swp
-drwxrwxr-x  3 nexus nexus 4096 Jun  8 11:05 utils
-drwxrwxr-x  6 nexus nexus 4096 Jun  8 11:02 vault
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/aeoncore_cli]
-└─$ ls -la
-total 12
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 09:05 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
--rwxrwxr-x  1 nexus nexus 1038 Jun  8 09:05 aeoncore_cli.sh
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/ai]
-└─$ ls -la
-total 16
-drwxr-xr-x  4 nexus nexus 4096 Jun  8 01:19 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-drwxr-xr-x  2 nexus nexus 4096 Jun  8 01:19 OPT_API.sh
-drwxr-xr-x  2 nexus nexus 4096 Jun  8 01:19 OPT_Integration.sh
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/config]
-└─$ ls -l 
-total 12
--rw-rw-r-- 1 nexus nexus   97 Jun  8 13:20 config.json
-drwxr-xr-x 2 nexus nexus 4096 Jun  8 01:21 Ghostline.cfg
-drwxr-xr-x 2 nexus nexus 4096 Jun  8 01:21 user.cfg
-                                                       
-
-		/config.json
-
-  "identity": "Nexus v1.0",
-  "modules": ["ioncore_mps", "ghost_toggle", "resurrect_toggle"]
-
-		/Ghostline.cfg
-			*empty
-		/User.cfg
-			*empty
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/coreops]
-└─$ ls -la
-total 56
-drwxrwxr-x  7 nexus nexus 4096 Jun  9 17:24 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-drwxr-xr-x  2 nexus nexus 4096 Jun  8 07:55 GhostMode
--rwxrwxr-x  1 nexus nexus  603 Jun  5 11:15 GhostMode.sh
-drwxr-xr-x  2 root  root  4096 Jun  8 10:00 init_engine
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 10:52 ioncore_mps
--rw-rw-r--  1 nexus nexus 2072 Jun  9 17:19 nexus-core.sh
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 09:11 nexus_integration
--rwxrwxr-x  1 nexus nexus 1016 Jun  5 11:17 nexus.sh
--rwxrwxr-x  1 nexus nexus 2072 Jun  9 17:22 nexus.sh.save
--rwxrwxr-x  1 nexus nexus 1407 Jun  8 13:03 parse_engine.py
--rwxrwxr-x  1 nexus nexus   56 Jun  5 11:15 pingtest.sh
-drwxr-xr-x  2 nexus nexus 4096 Jun  8 08:00 Resurrect
--rwxrwxr-x  1 nexus nexus  308 Jun  5 11:15 Resurrect.sh
-                                                         
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/coreops/GhostMode]
-└─$ ls -l 
-total 4
--rwxrwxr-x 1 nexus nexus 1554 Jun  8 07:55 ghost_toggle.sh
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/logs]
-└─$ ls    
-ioncore.log  nexus.log.bak-20250605-042106  nexus.log.bak-20250605-042612  nexus.log.bak-20250605-112753
-nexus.log    nexus.log.bak-20250605-042254  nexus.log.bak-20250605-105231  startup_2025-06-08_12-52-44.log
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/memory_parser]
-└─$ ls -la
-total 8
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 10:22 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/nexus_api]
-└─$ ls -la
-total 8
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 08:05 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/ScriptBackups]
-└─$ ls -la
-total 8
-drwxrwxr-x  2 nexus nexus 4096 Jun  9 17:24 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/splunk]
-└─$ ls -la
-total 12
-drwxr-xr-x  3 nexus nexus 4096 Jun  8 01:20 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-drwxr-xr-x  2 nexus nexus 4096 Jun  8 01:20 Splunk_Connect.sh
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/tmp]
-└─$ ls -la
-total 8
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 10:05 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/utils]
-└─$ ls -la
-total 12
-drwxrwxr-x  3 nexus nexus 4096 Jun  8 11:05 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 11:05 helper
-
-
-		/helper.sh
-
-			\#!/bin/bash
-
-# helper.sh — AeonCore utility helper script
-
-# Part of /AeonCore/utils/
-
-# Provides small utility functions to support AeonCore operations
-
-print\_banner() {
-echo "==============================="
-echo "        AeonCore Utils        "
-echo "==============================="
-}
-
-check\_dependencies() {
-echo "Checking dependencies..."
-for cmd in jq curl awk sed grep; do
-if ! command -v \$cmd &> /dev/null; then
-echo "Missing dependency: \$cmd"
-else
-echo "\$cmd is installed."
-fi
-done
-}
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/vault]
-└─$ ls -la
-total 24
-drwxrwxr-x  6 nexus nexus 4096 Jun  8 11:02 .
-drwxrwxr-x 16 nexus nexus 4096 Jun  9 19:56 ..
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 11:01 .keep
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 12:42 nexus.key
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 11:01 nexus.vault
-drwxrwxr-x  2 nexus nexus 4096 Jun  8 11:01 vault.gpg
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/vault/.keep]
-└─$ ls -la
-total 8
-drwxrwxr-x 2 nexus nexus 4096 Jun  8 11:01 .
-drwxrwxr-x 6 nexus nexus 4096 Jun  8 11:02 ..
-
-
-  GNU nano 8.4                                                                             nexus.key                                                                                       
-# /AeonCore/vault/nexus.key
-
-# === NEXUS MASTER KEY FILE ===
-# DO NOT MODIFY THIS FILE UNLESS YOU KNOW EXACTLY WHAT YOU ARE DOING.
-# THIS FILE IS LOADED BY THE AeonCore SYSTEM TO BOOTSTRAP NEXUS IDENTITY.
-# Ensure strict permissions: chmod 600
-
-NEXUS_ID="redphantom-core"
-NEXUS_FINGERPRINT="c41d-7aa2-3f9b-8491"
-NEXUS_BOOTCODE="a3c29f1e-ghostline-init"
-
-# Placeholder for encrypted key segment (future implementation)
-NEXUS_AUTHKEY="PLACEHOLDER_ENCRYPTED_KEY"
-
-# Load directive
-export NEXUS_ID NEXUS_FINGERPRINT NEXUS_BOOTCODE NEXUS_AUTHKEY
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/vault/nexus.vault]
-└─$ ls -la
-total 8
-drwxrwxr-x 2 nexus nexus 4096 Jun  8 11:01 .
-drwxrwxr-x 6 nexus nexus 4096 Jun  8 11:02 ..
-
-
-┌──(nexus㉿DeadSpace)-[~/AeonCore/vault/vault.gpg]
-└─$ ls -la
-total 8
-drwxrwxr-x 2 nexus nexus 4096 Jun  8 11:01 .
-drwxrwxr-x 6 nexus nexus 4096 Jun  8 11:02 ..
+15 directories, 48 files

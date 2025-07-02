@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-NEXUS_HOME=~/nexus-core
+NEXUS_HOME="~/Nexus"
 LOG="$NEXUS_HOME/logs/nexus.log"
 VAULT="$NEXUS_HOME/vault/vault.gpg"
 
@@ -28,7 +28,7 @@ case "$1" in
 
 	decrypt)
 		if [ -f "$LOG" ]; then
-			TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+			TIMESTAMP=$"(date +%Y%m%d-%H%M%S)"
 			BACKUP="$LOG.bak-$TIMESTAMP"
 			cp "$LOG" "$BACKUP"
 			echo "[!] WARNING: Existing log found."
@@ -36,9 +36,7 @@ case "$1" in
 
 			gpg --decrypt "$VAULT" > "$LOG" && echo "[+] Vault decrypted to log." || echo "[!] Decryption failed."
 		else
-			echo "[-] Nothing to decrypt..... ya jackAss."
            bash "$MODULE"
-                else
                         echo "[-] Module $2 not found."
                 fi
                 ;;
@@ -50,7 +48,7 @@ case "$1" in
 
         decrypt)
                 if [ -f "$LOG" ]; then
-                        TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+                        TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
                         BACKUP="$LOG.bak-$TIMESTAMP"
                         cp "$LOG" "$BACKUP"
                         echo "[!] WARNING: Existing log found."
@@ -74,8 +72,8 @@ case "$1" in
 
 	*)
 		echo "Usage:"
-		echo " nexus.sh log \"note text\""
-		echo " nexus.sh run <module>"
-		echo " nexus.sh encrypt | decrypt"
+		echo " nexus.sh log \"note text\" "
+		echo " nexus.sh run <module> "
+		echo " nexus.sh encrypt | decrypt "
 		;;
 	esac
