@@ -39,3 +39,5 @@ echo -e "\n[+] Traceroute (short):" >> "$LOGFILE"
 traceroute -m 5 "$TARGET" >> "$LOGFILE" 2>/dev/null
 
 echo -e "\n[✓] Recon complete. Saved to: $LOGFILE"
+
+"$HOME/Nexus/coreops/mcl/encrypt_log.sh" "$LOGFILE"

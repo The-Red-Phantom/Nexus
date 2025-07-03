@@ -26,3 +26,5 @@ echo "[+] Date: $(date)" >> "$LOGFILE"
 # Top 1000 TCP ports with service detection, minimal DNS resolution
 nmap -sS -sV -T3 --max-retries 3 --open -Pn "$TARGET" | tee -a "$LOGFILE"
 
+# Encrypt the log and wipe plaintext
+"$HOME/Nexus/coreops/mcl/encrypt_log.sh" "$LOGFILE"

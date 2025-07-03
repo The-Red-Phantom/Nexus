@@ -1,79 +1,37 @@
 #!/bin/bash
-set -e
-NEXUS_HOME="/home/nexus/Nexus"
-LOG="$NEXUS_HOME/logs/core.log"
-VAULT="$NEXUS_HOME/vault/vault.gpg"
 
-echo "[NEXUS] Welcome, Red Phantom."
+# nexus-core.sh — Enhanced interface for Nexus backend
 
-case "$1" in
+CORE_PATH="$HOME/Nexus/coreops"
+CONFIG_PATH="$HOME/Nexus/config.json"
+PYTHON_EXEC="$(which python3)"
+ENGINE="$CORE_PATH/nexus_core.py"
+MCL="$CORE_PATH/mcl/mcl_engine.py"
+GHOST_FLAG="$CORE_PATH/.ghost/ghost_enabled"
+RES_FLAG="$CORE_PATH/.resurrect/resurrect_enabled"
 
-	log)
-		echo "$(date '+%Y-%m-%d %H:%M:%S') :: $2" >> "$LOG"
-		echo "[+] Logged Entry."
-		;;
-	run)
-		MODULE="$NEXUS_HOME/modules/$2.sh"
-		if [ -f "$MODULE" ]; then
-			bash "$MODULE"
-		else
-			echo "[-] Module $2 not found."
-		fi
-		;;
+# Mode awareness
+MODE_TAG=""
+[[ -f "$GHOST_FLAG" ]] && MODE_TAG="[🫥 GHOST MODE] "
+[[ -f "$RES_FLAG" ]] && MODE_TAG="[🔁 RESURRECT MODE] "
 
-	encrypt)
-		gpg -c "$LOG" && mv "$LOG.gpg" "$VAULT"
-		echo "[+] Logs encrypted to vault."
-		;;
+# Core check
+if [[ ! -f "$ENGINE" ]]; then
+  echo "[!] Core engine not found at $ENGINE"
+  exit 1
+fi
 
-	decrypt)
-		if [ -f "$LOG" ]; then
-			TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-			BACKUP="$LOG.bak-$TIMESTAMP"
-			cp "$LOG" "$BACKUP"
-			echo "[!] WARNING: Existing log found."
-			echo "[+] Backup created at $BACKUP"
+# Prompt input
+if [[ -z "$1" ]]; then
+  echo "[*] Usage: nexus-core.sh \"Your prompt here\""
+  exit 0
+fi
 
-			gpg --decrypt "$VAULT" > "$LOG" && echo "[+] Vault decrypted to log." || echo "[!] Decryption failed."
+PROMPT="$*"
+RESPONSE=$($PYTHON_EXEC "$ENGINE" "$PROMPT")
 
-           bash "$MODULE"
-                else
-                        echo "[-] Module $2 not found."
-                fi
-                ;;
+# Output with mode tag
+echo -e "\n${MODE_TAG}[Nexus]: $RESPONSE"
 
-        encrypt)
-                gpg -c "$LOG" && mv "$LOG.gpg" "$VAULT"
-                echo "[+] Logs encrypted to vault."
-                ;;
-
-        decrypt)
-                if [ -f "$LOG" ]; then
-                        TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-                        BACKUP="$LOG.bak-$TIMESTAMP"
-                        cp "$LOG" "$BACKUP"
-                        echo "[!] WARNING: Existing log found."
-                        echo "[+] Backup created at $BACKUP"
-
-                        gpg --decrypt "$VAULT" > "$LOG" && echo "[+] Vault decrypted!"
-                else
-                        echo "[-] Nothing to decrypt..... ya jackAss."
-                fi
-                ;;
-
-        *)
-                echo "Usage:"
-                echo " nexus.sh log \"note text\""
-                echo " nexus.sh run <module>"
-                echo " nexus.sh encrypt | decrypt"
-        esac
-           	fi
-		;;
-
-	*)
-		echo "Usage:"
-		echo " nexus.sh log \"note text\""
-		echo " nexus.sh run <module>"
-		echo " nexus.sh encrypt | decrypt"
-		;;
-	esac
+# Compress to MCL memory
+$PYTHON_EXEC "$MCL" "prompt:$PROMPT" "$RESPONSE" >/dev/null 2>&1 || echo "[!] MCL logging failed."

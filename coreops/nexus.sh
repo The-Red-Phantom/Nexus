@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
-NEXUS_HOME=~/nexus-core
+
+NEXUS_HOME="$HOME/Nexus"
 LOG="$NEXUS_HOME/logs/nexus.log"
 VAULT="$NEXUS_HOME/vault/vault.gpg"
 
@@ -8,42 +9,57 @@ echo "[NEXUS] Welcome, Red Phantom."
 
 case "$1" in
 
-	log)
-		echo "$(date '+%Y-%m-%d %H:%M:%S') :: $2" >> "$LOG"
-		echo "[+] Logged Entry."
-		;;
-	run)
-		MODULE="$NEXUS_HOME/modules/$2.sh"
-		if [ -f "$MODULE" ]; then
-			bash "$MODULE"
-		else
-			echo "[-] Module $2 not found."
-		fi
-		;;
+    log)
+        [[ -z "$2" ]] && { echo "[-] No log message provided."; exit 1; }
+        mkdir -p "$(dirname "$LOG")"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') :: $2" >> "$LOG"
+        echo "[+] Logged entry: $2"
+        ;;
 
-	encrypt)
-		gpg -c "$LOG" && mv "$LOG.gpg" "$VAULT"
-		echo "[+] Logs encrypted to vault."
-		;;
+    run)
+        MODULE="$NEXUS_HOME/modules/$2.sh"
+        if [[ -f "$MODULE" ]]; then
+            echo "[*] Running module: $2"
+            bash "$MODULE"
+        else
+            echo "[-] Module '$2' not found in modules/"
+        fi
+        ;;
 
-	decrypt)
-		if [ -f "$LOG" ]; then
-			TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-			BACKUP="$LOG.bak-$TIMESTAMP"
-			cp "$LOG" "$BACKUP"
-			echo "[!] WARNING: Existing log found."
-			echo "[+] Backup created at $BACKUP"
+    encrypt)
+        KEYFILE="$NEXUS_HOME/vault/nexus.gpg.key"
+        if [[ -f "$LOG" ]]; then
+            if [[ -f "$KEYFILE" ]]; then
+                if gpg --batch --yes --passphrase-file "$KEYFILE" -c "$LOG"; then
+                    mv "$LOG.gpg" "$VAULT"
+                    shred -u "$LOG"
+                    echo "[+] Logs encrypted to vault using keyfile."
+                else
+                    echo "[-] Encryption failed."
+                fi
+            else
+                echo "[-] Keyfile not found at $KEYFILE."
+            fi
+        else
+            echo "[-] No log found to encrypt."
+        fi
+        ;;
 
-			gpg --decrypt "$VAULT" > "$LOG" && echo "[+] Vault decrypted to log." || echo "[!] Decryption failed."
-		else
-			echo "[-] Nothing to decrypt..... ya jackAss."
-		fi
-		;;
+    decrypt)
+        if [[ -f "$VAULT" ]]; then
+            TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+            BACKUP="$LOG.bak-$TIMESTAMP"
+            [[ -f "$LOG" ]] && cp "$LOG" "$BACKUP" && echo "[!] Backup of current log saved as $BACKUP"
+            gpg --decrypt "$VAULT" > "$LOG" && echo "[+] Vault decrypted to log."
+        else
+            echo "[-] No vault file to decrypt, ya jackass."
+        fi
+        ;;
 
-	*)
-		echo "Usage:"
-		echo " nexus.sh log \"note text\""
-		echo " nexus.sh run <module>"
-		echo " nexus.sh encrypt | decrypt"
-		;;
-	esac
+    *)
+        echo "Usage:"
+        echo "  nexus.sh log \"note text\""
+        echo "  nexus.sh run <module>"
+        echo "  nexus.sh encrypt | decrypt"
+        ;;
+esac

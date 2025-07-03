@@ -1,48 +1,47 @@
 #!/usr/bin/env python3
-# File: nexus_listen.py
-# Purpose: Listen for voice input, send to Nexus, speak reply
 
-import speech_recognition as sr
-from gtts import gTTS
-import sys 
- sys.path.append("/home/nexus/Nexus/coreops")
-from nexus_core import load_config, call_openai
+import time
+import json
+import os
+import subprocess
+from datetime import datetime
 
-def speak(text):
-    print(f"[NEXUS] {text}")
-    tts = gTTS(text=text, lang='en')
-    tts.save("/tmp/nexus_response.mp3")
-    os.system("ffplay -nodisp -autoexit /tmp/nexus_response.mp3 > /dev/null 2>&1")
+CONFIG_PATH = "/home/nexus/Nexus/config.json"
+TRIGGER_PHRASE = "wake nexus"  # can change to more stealthy signal
+LISTEN_LOG = "/home/nexus/Nexus/logs/nexus_listen.log"
 
-def listen():
-    recognizer = sr.Recognizer()
-    mic = sr.Microphone()
-    with mic as source:
-        print("[LISTENING] Speak your prompt...")
-        recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source)
+def load_config():
     try:
-        prompt = recognizer.recognize_google(audio)
-        print(f"[YOU] {prompt}")
-        return prompt
-    except sr.UnknownValueError:
-        print("[ERROR] Could not understand audio")
-        return None
-    except sr.RequestError as e:
-        print(f"[ERROR] API unavailable: {e}")
-        return None
+        with open(CONFIG_PATH, "r") as f:
+            return json.load(f)
+    except Exception as e:
+        log(f"[ERROR] Failed to load config: {e}")
+        return {}
 
-def main():
-    config = load_config()
-    while True:
-        prompt = listen()
-        if not prompt:
-            continue
-        if prompt.lower() in ["exit", "quit", "shutdown nexus"]:
-            speak("Shutting down. Goodbye.")
-            break
-        response = call_openai(prompt, config)
-        speak(response)
+def log(message):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(LISTEN_LOG, "a") as f:
+        f.write(f"[{timestamp}] {message}\n")
+    print(f"[NEXUS LISTEN] {message}")
+
+def listen_loop():
+    log("Nexus passive listener initialized.")
+    try:
+        while True:
+            time.sleep(2)
+            # Placeholder for input source — could be mic, file, socket, etc.
+            # Simulating with a local file for now
+            try:
+                with open("/tmp/nexus_trigger.txt", "r") as f:
+                    content = f.read().strip().lower()
+                    if TRIGGER_PHRASE in content:
+                        log(f"Trigger detected: {content}")
+                        subprocess.Popen(["/home/nexus/Nexus/coreops/nexus-core.sh", "System online."])
+                        os.remove("/tmp/nexus_trigger.txt")  # clear trigger
+            except FileNotFoundError:
+                pass
+    except KeyboardInterrupt:
+        log("Listener terminated by user.")
 
 if __name__ == "__main__":
-    main()
+    listen_loop()

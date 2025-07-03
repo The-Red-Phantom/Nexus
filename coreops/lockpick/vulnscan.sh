@@ -25,3 +25,5 @@ echo "[+] Date: $(date)" >> "$LOGFILE"
 nmap -sV --script vuln -T3 --max-retries 3 -Pn "$TARGET" | tee -a "$LOGFILE"
 
 echo "[✓] Vulnerability scan complete. Log saved to: $LOGFILE"
+
+"$HOME/Nexus/coreops/mcl/encrypt_log.sh" "$LOGFILE"
