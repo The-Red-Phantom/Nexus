@@ -1,51 +1,41 @@
 #!/bin/bash
-# ghost_toggle.sh: Toggle stealth mode for AeonCore Lockpick
-# When enabled, block all outbound except essential scanning traffic
+# ghost_toggle.sh – Toggle stealth mode for AeonCore Lockpick
 
-GHOST_FLAG="/tmp/ghost_mode.enabled"
+GHOST_FLAG="$HOME/Nexus/coreops/.ghost/ghost_enabled"
 
 enable_ghost() {
   echo "[GHOST] Enabling stealth mode..."
-  # Flush existing rules to avoid conflicts
-  iptables -F OUTPUT
-  iptables -F INPUT
-  iptables -F FORWARD
 
-  # Default policies: block outbound and inbound
-  iptables -P OUTPUT DROP
-  iptables -P INPUT DROP
-  iptables -P FORWARD DROP
+  sudo iptables -F OUTPUT
+  sudo iptables -F INPUT
+  sudo iptables -F FORWARD
 
-  # Allow loopback and established connections
-  iptables -A INPUT -i lo -j ACCEPT
-  iptables -A OUTPUT -o lo -j ACCEPT
-  iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-  iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+  sudo iptables -P OUTPUT DROP
+  sudo iptables -P INPUT DROP
+  sudo iptables -P FORWARD DROP
 
-  # Allow DNS (UDP 53) outbound for scans to resolve domains
-  iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+  sudo iptables -A INPUT -i lo -j ACCEPT
+  sudo iptables -A OUTPUT -o lo -j ACCEPT
+  sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+  sudo iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-  # Allow ICMP echo requests and replies (ping) outbound/inbound
-  iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
-  iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+  sudo iptables -A OUTPUT -p udp --dport 53 -j ACCEPT         # DNS
+  sudo iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
+  sudo iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
+  sudo iptables -A OUTPUT -p tcp --syn -j ACCEPT              # SYN scan
 
-  # Allow nmap TCP scanning on ports commonly used (e.g., top 1000)
-  # Accept outbound TCP SYN packets (scan probes)
-  iptables -A OUTPUT -p tcp --syn -j ACCEPT
-
-  # Save flag file
   touch "$GHOST_FLAG"
   echo "[GHOST] Stealth mode enabled."
 }
 
 disable_ghost() {
   echo "[GHOST] Disabling stealth mode..."
-  iptables -F OUTPUT
-  iptables -F INPUT
-  iptables -F FORWARD
-  iptables -P OUTPUT ACCEPT
-  iptables -P INPUT ACCEPT
-  iptables -P FORWARD ACCEPT
+  sudo iptables -F OUTPUT
+  sudo iptables -F INPUT
+  sudo iptables -F FORWARD
+  sudo iptables -P OUTPUT ACCEPT
+  sudo iptables -P INPUT ACCEPT
+  sudo iptables -P FORWARD ACCEPT
   rm -f "$GHOST_FLAG"
   echo "[GHOST] Stealth mode disabled."
 }
@@ -72,4 +62,3 @@ case "$1" in
     echo "Usage: $0 {on|off|status}"
     ;;
 esac
-

@@ -1,8 +1,18 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GHOST_FLAG="$HOME/Nexus/coreops/.ghost/ghost_enabled"
+
 clear
-echo "=== Lockpick Red Team Ops ==="
-echo "Select a tool to deploy:"
+figlet -f slant "LOCKPICK"
+echo ""
+echo "=== Lockpick Red Team Ops Launcher ==="
+echo "System: $(hostname) | User: $USER | Time: $(date)"
+if [[ -f "$GHOST_FLAG" ]]; then
+    echo "[⚠] GHOST MODE ACTIVE"
+else
+    echo "[+] Normal mode"
+fi
 echo ""
 echo "1) Network Recon         (scan.sh)"
 echo "2) Exploit Suggestions   (exploit_suggest.sh)"
@@ -15,14 +25,14 @@ read -p "Choice: " CHOICE
 case $CHOICE in
   1)
     read -p "Target IP or domain: " TARGET
-    ./scan.sh "$TARGET"
+    "$SCRIPT_DIR/scan.sh" "$TARGET"
     ;;
   2)
     read -p "Target IP or domain: " TARGET
-    ./exploit_suggest.sh "$TARGET"
+    "$SCRIPT_DIR/exploit_suggest.sh" "$TARGET"
     ;;
   3)
-    sudo ./cloak.sh
+    sudo "$SCRIPT_DIR/cloak.sh"
     ;;
   4)
     echo "Exiting Lockpick..."
@@ -34,4 +44,3 @@ case $CHOICE in
     exec "$0"
     ;;
 esac
-
