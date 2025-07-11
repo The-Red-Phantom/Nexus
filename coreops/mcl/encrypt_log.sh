@@ -4,8 +4,8 @@
 # Usage: ./encrypt_log.sh <logfile>
 
 INFILE="$1"
-KEYFILE="$HOME/Nexus/coreops/vault/nexus.key"
-OUTDIR="$HOME/Nexus/coreops/vault/encrypted"
+KEYFILE="$HOME/vault/nexus.key"
+OUTDIR="$HOME/vault/encrypted"
 
 mkdir -p "$OUTDIR"
 

@@ -1,0 +1,24 @@
+=== Lockpick Loot Summary ===
+Timestamp: 2025-07-09_17-41-52
+=============================
+
+[+] Scanning logs in: /home/nexus/Nexus/logs/lockpick and /tmp
+[+] Looted: lockpick_20250703_085357.log
+[+] Looted: lockpick_20250709_150113.log
+[+] Looted: lockpick_exploits_10.10.33.144.log
+[+] Looted: lockpick_scan_10.10.33.144.txt
+[+] Looted: lockpick_scan_192.168.1.142.txt
+[+] Looted: lockpick_scan_192.168.1.164.txt
+
+[+] Categorizing loot...
+
+--- Open Ports ---
+/home/nexus/Nexus/loot/lockpick_scan_10.10.33.144.txt:21/tcp open  ftp?
+/home/nexus/Nexus/loot/lockpick_scan_192.168.1.142.txt:21/tcp open  ftp?
+/home/nexus/Nexus/loot/lockpick_scan_192.168.1.164.txt:21/tcp open  ftp?
+
+--- Vulnerabilities ---
+
+--- Creds / Anonymous Access ---
+
+--- Recon Data ---

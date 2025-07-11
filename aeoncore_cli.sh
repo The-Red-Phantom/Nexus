@@ -9,6 +9,7 @@ VAULT_KEY="/home/nexus/Nexus/vault/nexus.key"
 NEXUS_BRIDGE="/home/nexus/Nexus/coreops/nexus_bridge.py"
 INIT_ENGINE="/home/nexus/Nexus/init_engine.sh"
 MCL_ENGINE="/home/nexus/Nexus/coreops/mcl/mcl_engine.py"
+LOCKPICK_MENU="/home/nexus/Nexus/coreops/lockpick/menu.sh"
 
 banner() {
   clear
@@ -19,12 +20,9 @@ banner() {
 PROJECT_NAME=$(jq -r '.project_name' "$CONFIG_FILE")
 BUILD_TAG=$(jq -r '.build_tag' "$CONFIG_FILE")
 
-banner() {
-  clear
-  figlet -f shadow "NEXUS"
-}
-
 # Print welcome banner
+banner
+
 echo -e "\e[1;36m[AEONCORE]\e[0m Welcome to AeonCore CLI for project: $PROJECT_NAME [$BUILD_TAG]"
 
 # Function: Show help menu
@@ -80,7 +78,7 @@ function show_status() {
 
 # Function: Launch lockpick module
 function lockpick_mode() {
-    bash "$CORE_DIR/lockpick.sh"
+    bash "$LOCKPICK_MENU"
 }
 
 # Main CLI loop
